@@ -20,7 +20,7 @@ app.post("/signup", async function(req, res){
     })
 
     res.json({
-        message: "You are logged in"
+        message: "You are signed up"
     })
 });
 
