@@ -5,7 +5,8 @@ function App() {
   return (
     <div style={{ background: "#dfe6e9", height: "100vh" }}>
       <ToggleMessage />
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <IncrementNotifications />
+      {/* <div style={{ display: "flex", justifyContent: "center" }}>
         <div>
           <div>
             <PostComponent
@@ -28,7 +29,7 @@ function App() {
             <br />
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }
@@ -36,7 +37,9 @@ function App() {
 const style = { width: 200, backgroundColor: "white", borderRadius: 10, borderColor: "grey", borderWidth: 1, padding: 20 }
 
 function ToggleMessage() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false); // defining a new state variable
+  // When the value of a state variable changes,
+  // the component that uses the state variable re-renders
 
   return(
     <div>
@@ -48,30 +51,47 @@ function ToggleMessage() {
   );
 };
 
-function PostComponent({ name, subtitle, time, image, description }) {
-  return <div style={style}>
-    <div style={{ display: "flex" }}>
-      <img src={image} style={{
-        width: 30,
-        height: 30,
-        borderRadius: 20
-      }} />
-      <div style={{ fontSize: 10, marginLeft: 10 }}>
-        <b>
-          {name}
-        </b>
-        <div>{subtitle}</div>
-        {/* Conditional rendering using ternary operator */}
-        {time !== undefined ? <div style={{ display: "flex" }}>
-          <div>{time}</div>
-          <img src={"https://static-00.iconduck.com/assets.00/clock-icon-256x256-ydb2989g.png"} style={{ width: 10, height: 10, paddingLeft: 5 }} />
-        </div> : null}
-      </div>
+function IncrementNotifications(){
+  let [notificationCount, setNotificationCount] = useState(0);
+
+  function increment(){
+    setNotificationCount(notificationCount + 1);
+  }
+
+  return (
+    <div>
+      <button onClick={increment}>
+        Notifications
+      </button>
+      {notificationCount}
     </div>
-    <div style={{ fontSize: 12 }}>
-      {description}
-    </div>
-  </div>
+  );
 };
+
+// function PostComponent({ name, subtitle, time, image, description }) {
+//   return <div style={style}>
+//     <div style={{ display: "flex" }}>
+//       <img src={image} style={{
+//         width: 30,
+//         height: 30,
+//         borderRadius: 20
+//       }} />
+//       <div style={{ fontSize: 10, marginLeft: 10 }}>
+//         <b>
+//           {name}
+//         </b>
+//         <div>{subtitle}</div>
+//         {/* Conditional rendering using ternary operator */}
+//         {time !== undefined ? <div style={{ display: "flex" }}>
+//           <div>{time}</div>
+//           <img src={"https://static-00.iconduck.com/assets.00/clock-icon-256x256-ydb2989g.png"} style={{ width: 10, height: 10, paddingLeft: 5 }} />
+//         </div> : null}
+//       </div>
+//     </div>
+//     <div style={{ fontSize: 12 }}>
+//       {description}
+//     </div>
+//   </div>
+// };
 
 export default App
