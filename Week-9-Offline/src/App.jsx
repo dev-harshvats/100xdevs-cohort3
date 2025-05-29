@@ -1,72 +1,79 @@
 import { use, useState } from "react"
+import { PostComponent } from "./Post"
 
 function App() {
 
-  return (
-    <div style={{ background: "#dfe6e9", height: "100vh" }}>
-      <ToggleMessage />
-      <IncrementNotifications />
-      {/* <div style={{ display: "flex", justifyContent: "center" }}>
-        <div>
-          <div>
-            <PostComponent
-              name={"Visual Studio Code"}
-              subtitle={"13000 followers"}
-              time={"3m ago"}
-              image={"https://code.visualstudio.com/assets/images/code-stable.png"}
-              description={"Visual Studio Code dummy PostComponent description."}
-            />
-            <br />
-          </div>
-          <div>
-            <PostComponent
-              name={"raman"}
-              subtitle={"promoted"}
-              time={"3m ago"}
-              image={"https://code.visualstudio.com/assets/images/code-stable.png"}
-              description={"Random bullshit"}
-            />
-            <br />
-          </div>
-        </div>
-      </div> */}
-    </div>
-  )
+  // remove comment for PostComponent block of 1st commit
+  // return (
+  //   <div style={{ background: "#dfe6e9", height: "100vh" }}>
+  //     {/* <div style={{ display: "flex", justifyContent: "center" }}>
+  //       <div>
+  //         <div>
+  //           <PostComponent
+  //             name={"Visual Studio Code"}
+  //             subtitle={"13000 followers"}
+  //             time={"3m ago"}
+  //             image={"https://code.visualstudio.com/assets/images/code-stable.png"}
+  //             description={"Visual Studio Code dummy PostComponent description."}
+  //           />
+  //           <br />
+  //         </div>
+  //         <div>
+  //           <PostComponent
+  //             name={"raman"}
+  //             subtitle={"promoted"}
+  //             time={"3m ago"}
+  //             image={"https://code.visualstudio.com/assets/images/code-stable.png"}
+  //             description={"Random bullshit"}
+  //           />
+  //           <br />
+  //         </div>
+  //       </div>
+  //     </div> */}
+  //   </div>
+  // )
+
+  // remove comment for toggle message block
+  // return (
+  //   <div style={{ background: "#dfe6e9", height: "100vh" }}>
+  //     {/* <ToggleMessage />
+  //     <IncrementNotifications /> */}
+  //   </div>
+  // )
 }
 
-const style = { width: 200, backgroundColor: "white", borderRadius: 10, borderColor: "grey", borderWidth: 1, padding: 20 }
 
-function ToggleMessage() {
-  const [isVisible, setIsVisible] = useState(false); // defining a new state variable
-  // When the value of a state variable changes,
-  // the component that uses the state variable re-renders
+// function ToggleMessage() {
+//   const [isVisible, setIsVisible] = useState(false); // defining a new state variable
+//   // When the value of a state variable changes,
+//   // the component that uses the state variable re-renders
 
-  return(
-    <div>
-      <button onClick={() => setIsVisible(!isVisible)}>
-        Toggle Message
-      </button>
-      {isVisible && <p>This message is conditionally rendered!</p>}
-    </div>
-  );
-};
+//   return(
+//     <div>
+//       <button onClick={() => setIsVisible(!isVisible)}>
+//         Toggle Message
+//       </button>
+//       {isVisible && <p>This message is conditionally rendered!</p>}
+//     </div>
+//   );
+// };
 
-function IncrementNotifications(){
-  let [notificationCount, setNotificationCount] = useState(0);
+// function IncrementNotifications(){
+//   let [notificationCount, setNotificationCount] = useState(0);
 
-  function increment(){
-    setNotificationCount(notificationCount + 1);
-  }
+//   function increment(){
+//     setNotificationCount(notificationCount + 1);
+//   }
 
-  return (
-    <div>
-      <button onClick={increment}>
-        Notifications
-      </button>
-      {notificationCount}
-    </div>
-  );
-};
+//   return (
+//     <div>
+//       <button onClick={increment}>
+//         Notifications
+//       </button>
+//       {notificationCount}
+//     </div>
+//   );
+// };
 
 // function PostComponent({ name, subtitle, time, image, description }) {
 //   return <div style={style}>
