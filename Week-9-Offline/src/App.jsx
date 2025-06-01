@@ -73,19 +73,30 @@ function App() {
   //   </div>
   // )
 
-  const [count, setCount] = useState(1);
-  function increaseCount() {
-    setCount(currentValue => currentValue + 1);
-  }
-  useEffect(function () {
-    console.log("above setInterval");
-    setInterval(increaseCount, 1000);
-  }, [])  // this effect will run on mount, because the array is empty
-  useEffect(function () {
-    console.log("the count has been updated to " + count);
-  }, [count]);  // this effect will run when "count" changes, "count" is a dependency here
+
+  // remove comments for useEffect
+  // const [count, setCount] = useState(1);
+  // function increaseCount() {
+  //   setCount(currentValue => currentValue + 1);
+  // }
+  // useEffect(function () {
+  //   console.log("above setInterval");
+  //   setInterval(increaseCount, 1000);
+  // }, [])  // this effect will run on mount, because the array is empty
+  // useEffect(function () {
+  //   console.log("the count has been updated to " + count);
+  // }, [count]);  // this effect will run when "count" changes, "count" is a dependency here
+  // return <div>
+  //   {count}
+  // </div>
+
+  // linkedin like top bar buttons
+  const [currentTab, setCurrentTab] = useState("feed");
   return <div>
-    {count}
+    <button style={{color: currentTab == "feed" ? "red" : "black"}} onClick={() => setCurrentTab("feed")}>Feed</button>
+    <button style={{color: currentTab == "notifications" ? "red" : "black"}} onClick={() => setCurrentTab("notifications")}>Notifications</button>
+    <button style={{color: currentTab == "messages" ? "red" : "black"}} onClick={() => setCurrentTab("messages")}>Messages</button>
+    <button style={{color: currentTab == "jobs" ? "red" : "black"}} onClick={() => setCurrentTab("jobs")}>Jobs</button>
   </div>
 }
 
