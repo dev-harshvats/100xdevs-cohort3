@@ -1,4 +1,4 @@
-import { use, useState } from "react"
+import { useEffect, useState } from "react"
 import { PostComponent } from "./Post"
 
 function App() {
@@ -41,36 +41,52 @@ function App() {
   //   </div>
   // )
 
-  const [posts, setPosts] = useState([]);
+  // remove comments for Add Post button (using useState)
+  // const [posts, setPosts] = useState([]);
 
-  const postComponents = posts.map(post => <PostComponent
-    name={post.name}
-    subtitle={post.subtitle}
-    time={post.title}
-    image={post.image}
-    description={post.description}
-  />)
+  // const postComponents = posts.map(post => <PostComponent
+  //   name={post.name}
+  //   subtitle={post.subtitle}
+  //   time={post.title}
+  //   image={post.image}
+  //   description={post.description}
+  // />)
 
-  function addPost() {
-    setPosts([...posts, {
-      name: "harkirat",
-      subtitle: "10000 followers",
-      time: "2m ago",
-      image: "https://appx-wsb-gcp-mcdn.akamai.net.in/subject/2023-01-17-0.17044360120951185.jpg",
-      description: "What to know how to win big? Check out how these folks won $6000 in bounties."
-    }])
+  // function addPost() {
+  //   setPosts([...posts, {
+  //     name: "harkirat",
+  //     subtitle: "10000 followers",
+  //     time: "2m ago",
+  //     image: "https://appx-wsb-gcp-mcdn.akamai.net.in/subject/2023-01-17-0.17044360120951185.jpg",
+  //     description: "What to know how to win big? Check out how these folks won $6000 in bounties."
+  //   }])
+  // }
+
+  // return (
+  //   <div style={{background: "#dfe6e9", height: "100vh", }}>
+  //     <button onClick={addPost}>Add Post</button>
+  //     <div style={{display: "flex", justifyContent: "center" }}>
+  //       <div>
+  //         {postComponents}
+  //       </div>
+  //     </div>
+  //   </div>
+  // )
+
+  const [count, setCount] = useState(1);
+  function increaseCount() {
+    setCount(currentValue => currentValue + 1);
   }
-
-  return (
-    <div style={{background: "#dfe6e9", height: "100vh", }}>
-      <button onClick={addPost}>Add Post</button>
-      <div style={{display: "flex", justifyContent: "center" }}>
-        <div>
-          {postComponents}
-        </div>
-      </div>
-    </div>
-  )
+  useEffect(function () {
+    console.log("above setInterval");
+    setInterval(increaseCount, 1000);
+  }, [])  // this effect will run on mount, because the array is empty
+  useEffect(function () {
+    console.log("the count has been updated to " + count);
+  }, [count]);  // this effect will run when "count" changes, "count" is a dependency here
+  return <div>
+    {count}
+  </div>
 }
 
 
