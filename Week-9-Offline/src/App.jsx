@@ -91,12 +91,23 @@ function App() {
   // </div>
 
   // linkedin like top bar buttons
-  const [currentTab, setCurrentTab] = useState("feed");
+  // const [currentTab, setCurrentTab] = useState("feed");
+  // return <div>
+  //   <button style={{color: currentTab == "feed" ? "red" : "black"}} onClick={() => setCurrentTab("feed")}>Feed</button>
+  //   <button style={{color: currentTab == "notifications" ? "red" : "black"}} onClick={() => setCurrentTab("notifications")}>Notifications</button>
+  //   <button style={{color: currentTab == "messages" ? "red" : "black"}} onClick={() => setCurrentTab("messages")}>Messages</button>
+  //   <button style={{color: currentTab == "jobs" ? "red" : "black"}} onClick={() => setCurrentTab("jobs")}>Jobs</button>
+  // </div>
+
+  // remove comments for Cleanup
+  const [showTimer, setShowTimer] = useState(true);
+  useEffect(() => {
+    setInterval(() => {
+      setShowTimer(currentValue => !currentValue);
+    }, 5000);
+  }, []);
   return <div>
-    <button style={{color: currentTab == "feed" ? "red" : "black"}} onClick={() => setCurrentTab("feed")}>Feed</button>
-    <button style={{color: currentTab == "notifications" ? "red" : "black"}} onClick={() => setCurrentTab("notifications")}>Notifications</button>
-    <button style={{color: currentTab == "messages" ? "red" : "black"}} onClick={() => setCurrentTab("messages")}>Messages</button>
-    <button style={{color: currentTab == "jobs" ? "red" : "black"}} onClick={() => setCurrentTab("jobs")}>Jobs</button>
+    {showTimer && <Timer />}
   </div>
 }
 
@@ -158,5 +169,23 @@ function App() {
 //     </div>
 //   </div>
 // };
+
+const Timer = () => {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    let clock = setInterval(() => {
+      console.log("from inside clock");   // this keeps on logging even when the showTimer becomes false, hence Cleanup comes in picture
+      setSeconds(prev => prev + 1);
+    }, 1000);
+    
+      // cleanup function
+      return function () {
+        clearInterval(clock);
+      }
+  }, []);
+
+  return <div>{seconds} seconds elapsed</div>;
+};
 
 export default App
