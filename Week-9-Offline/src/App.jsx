@@ -100,49 +100,62 @@ function App() {
   // </div>
 
   // remove comments for Cleanup
-  const [showTimer, setShowTimer] = useState(true);
-  useEffect(() => {
-    setInterval(() => {
-      setShowTimer(currentValue => !currentValue);
-    }, 5000);
-  }, []);
-  return <div>
-    {showTimer && <Timer />}
-  </div>
+  // const [showTimer, setShowTimer] = useState(true);
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     setShowTimer(currentValue => !currentValue);
+  //   }, 5000);
+  // }, []);
+  // return <div>
+  //   {showTimer && <Timer />}
+  // </div>
+
+  return (
+    <div>
+      <Card>
+        <h2>Card Title</h2>
+        <p>This is some content inside the card.</p>
+      </Card>
+      <Card>
+        <h2>Another Card</h2>
+        <p>This card has different content!</p>
+      </Card>
+    </div>
+  )
 }
 
 
-// function ToggleMessage() {
-//   const [isVisible, setIsVisible] = useState(false); // defining a new state variable
-//   // When the value of a state variable changes,
-//   // the component that uses the state variable re-renders
+function ToggleMessage() {
+  const [isVisible, setIsVisible] = useState(false); // defining a new state variable
+  // When the value of a state variable changes,
+  // the component that uses the state variable re-renders
 
-//   return(
-//     <div>
-//       <button onClick={() => setIsVisible(!isVisible)}>
-//         Toggle Message
-//       </button>
-//       {isVisible && <p>This message is conditionally rendered!</p>}
-//     </div>
-//   );
-// };
+  return (
+    <div>
+      <button onClick={() => setIsVisible(!isVisible)}>
+        Toggle Message
+      </button>
+      {isVisible && <p>This message is conditionally rendered!</p>}
+    </div>
+  );
+};
 
-// function IncrementNotifications(){
-//   let [notificationCount, setNotificationCount] = useState(0);
+function IncrementNotifications() {
+  let [notificationCount, setNotificationCount] = useState(0);
 
-//   function increment(){
-//     setNotificationCount(notificationCount + 1);
-//   }
+  function increment() {
+    setNotificationCount(notificationCount + 1);
+  }
 
-//   return (
-//     <div>
-//       <button onClick={increment}>
-//         Notifications
-//       </button>
-//       {notificationCount}
-//     </div>
-//   );
-// };
+  return (
+    <div>
+      <button onClick={increment}>
+        Notifications
+      </button>
+      {notificationCount}
+    </div>
+  );
+};
 
 // function PostComponent({ name, subtitle, time, image, description }) {
 //   return <div style={style}>
@@ -178,14 +191,29 @@ const Timer = () => {
       console.log("from inside clock");   // this keeps on logging even when the showTimer becomes false, hence Cleanup comes in picture
       setSeconds(prev => prev + 1);
     }, 1000);
-    
-      // cleanup function
-      return function () {
-        clearInterval(clock);
-      }
+
+    // cleanup function
+    return function () {
+      clearInterval(clock);
+    }
   }, []);
 
   return <div>{seconds} seconds elapsed</div>;
 };
+
+// Children
+const Card = ({ children }) => {
+  return (
+    <div style={{
+      border: '1px solid #ccc',
+      borderRadius: '5px',
+      padding: '20px',
+      margin: '10px',
+      boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.1)',
+    }}>
+      {children}
+    </div>
+  )
+}
 
 export default App
