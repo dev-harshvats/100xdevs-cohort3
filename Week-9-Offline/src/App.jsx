@@ -1,3 +1,4 @@
+import React from "react"
 import { useEffect, useState } from "react"
 import { PostComponent } from "./Post"
 
@@ -33,6 +34,7 @@ function App() {
   //   </div>
   // )
 
+
   // remove comment for toggle message block
   // return (
   //   <div style={{ background: "#dfe6e9", height: "100vh" }}>
@@ -40,6 +42,7 @@ function App() {
   //     <IncrementNotifications /> */}
   //   </div>
   // )
+
 
   // remove comments for Add Post button (using useState)
   // const [posts, setPosts] = useState([]);
@@ -99,6 +102,7 @@ function App() {
   //   <button style={{color: currentTab == "jobs" ? "red" : "black"}} onClick={() => setCurrentTab("jobs")}>Jobs</button>
   // </div>
 
+
   // remove comments for Cleanup
   // const [showTimer, setShowTimer] = useState(true);
   // useEffect(() => {
@@ -110,16 +114,29 @@ function App() {
   //   {showTimer && <Timer />}
   // </div>
 
+
+  //remove comments for children
+  // return (
+  //   <div>
+  //     <Card>
+  //       <h2>Card Title</h2>
+  //       <p>This is some content inside the card.</p>
+  //     </Card>
+  //     <Card>
+  //       <h2>Another Card</h2>
+  //       <p>This card has different content!</p>
+  //     </Card>
+  //   </div>
+  // )
+
   return (
     <div>
-      <Card>
-        <h2>Card Title</h2>
-        <p>This is some content inside the card.</p>
-      </Card>
-      <Card>
-        <h2>Another Card</h2>
-        <p>This card has different content!</p>
-      </Card>
+      <ErrorBoundary>
+        <Card1 />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Card2 />
+      </ErrorBoundary>
     </div>
   )
 }
@@ -214,6 +231,41 @@ const Card = ({ children }) => {
       {children}
     </div>
   )
+}
+
+
+// Error boundary (both functions, Card1 and Card2)
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    console.error("Error caught:", error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>Something went wrong!</h1>
+    }
+
+    return this.props.children;
+  }
+}
+function Card1() {
+  return <div style={{ background: "red", borderRadius: 20, padding: 20, margin: 20 }}>
+    Card1 content
+  </div>
+}
+function Card2() {
+  return <div style={{ background: "red", borderRadius: 20, padding: 20, margin: 20 }}>
+    Card2 content
+  </div>
 }
 
 export default App
