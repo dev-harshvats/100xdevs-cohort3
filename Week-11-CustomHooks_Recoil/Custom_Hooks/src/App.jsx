@@ -1,14 +1,15 @@
 import { useState } from 'react'
-import { useCounter, useFetch, usePrev } from './hooks/exports'
+import { useCounter, useFetch, usePrev, useDebounce } from './hooks/exports'
 
 function App() {
-    const [state, setState] = useState(0);
-    const prev = usePrev(state);
+    function setDataToBackend() {
+        fetch("api.amazon.com/search/");
+    }
+
+    const debouncedFn = useDebounce(setDataToBackend);
 
     return <div>
-        <p>{state}</p>
-        <button onClick={() => {setState(curr => curr + 1)}}>Click Me</button>
-        <p>The previous value was {prev}</p>
+        <input type="text" onChange={debouncedFn}></input>
     </div>
 }
 
