@@ -1,9 +1,8 @@
 import express from "express";
-import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
-import { ContentModel, UserModel } from "./db";
+import { ContentModel, LinkModel, UserModel } from "./db";
 import { JWT_PASSWORD } from "./config";
-import { userMiddleware } from "./middlware";
+import { userMiddleware } from "./middleware";
 
 const app = express();
 app.use(express.json());
@@ -22,7 +21,7 @@ app.post("/api/v1/signup", async (req, res) => {
       message: "User signed up",
     });
   } catch (e) {
-    res.json({
+    res.status(411).json({
       message: "User already exists",
     });
   }
@@ -31,6 +30,7 @@ app.post("/api/v1/signup", async (req, res) => {
 app.post("/api/v1/signin", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
+
   const existingUser = await UserModel.findOne({
     username,
     password,
@@ -58,8 +58,7 @@ app.post("/api/v1/content", userMiddleware, async (req, res) => {
   const link = req.body.link;
   await ContentModel.create({
     link,
-    title,
-    // @ts-ignore
+    title: req.body.title,
     userId: req.userId,
     tags: [],
   });
@@ -70,7 +69,6 @@ app.post("/api/v1/content", userMiddleware, async (req, res) => {
 });
 
 app.get("/api/v1/content", userMiddleware, async (req, res) => {
-  // @ts-ignore
   const userId = req.userId;
   const content = await ContentModel.find({
     userId: userId,
@@ -85,7 +83,6 @@ app.delete("/api/v1/content", userMiddleware, async (req, res) => {
 
   await ContentModel.deleteMany({
     contentId,
-    // @ts-ignore
     userId: req.userId,
   });
 
@@ -94,8 +91,42 @@ app.delete("/api/v1/content", userMiddleware, async (req, res) => {
   });
 });
 
-app.post("/api/v1/brain/share", (req, res) => {});
+app.post("/api/v1/brain/share", userMiddleware, async (req, res) => {
+  const share = req.body.share;
+  if (share) {
+    const existingLink = await LinkModel.findOne({
+      userId: req.userId,
+    });
+
+    if (existingLink) {
+      res.json({
+        hash: existingLink.hash,
+      });
+      return;
+    }
+    // @ts-ignore
+    const hash = random(10);
+    await LinkModel.create({
+      userId: req.userId,
+      hash: hash,
+    });
+
+    res.json({
+      hash,
+    });
+  } else {
+    await LinkModel.deleteOne({
+      userId: req.userId,
+    });
+
+    res.json({
+      message: "Removed link",
+    });
+  }
+});
 
 app.get("/api/v1/brain/:shareLink", (req, res) => {});
 
-app.listen(3000);
+app.listen(3000, () => {
+  console.log("Backend is running on http://localhost:3000");
+});
