@@ -1,0 +1,21 @@
+{
+  "name": "week-17-postgresql",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsc -b && node ./dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "pg": "^8.16.3",
+    "postgres": "^3.4.7",
+    "typescript": "^5.9.2"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.15.5"
+  }
+}
